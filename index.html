@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ahmad Saeed</title>
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="description" content="Ahmad Saeed">
+    <meta name="keywords" content="Ahmad Saeed, Ahmad">
+    <meta name="author" content="Ahmad Saeed">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:description" content="Hi, I'm Ahmad Saeed, a 4'1 goblin from Calgary.">
+    <meta itemprop="description" content="Hi, I'm Ahmad Saeed, a 4'1 goblin from Calgary.">
+</head>
+
+<body>
+    <header>
+        <h1>Ahmad Saeed</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#galleryMain">Gallery</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <p>
+            Hello, My name is Ahmad Saeed, and I am a 4'1 goblin at 14 years old. My kindergarden sister is taller than me and my eczema is getting out of control, and I don't have the willpower to use lotion.
+            I have a infinite gamepass and have had it ever since I was born. My number 1 opp is Brahmjot Singh Dhaliwal. Just because hes quadruple my size doesnt mean I cant beat him up any day of the week.
+            <br>
+            I have garbage hygiene and teachers call me a 6th grader by accident, i am in desperate need of friends because of my shortness and stupidiy.
+
+            <br><br>
+            <b>Other names for me are:</b> Om, Ohmed, Short stuff, gamepass, mini pekka, dwarf, excema dwarf, crocadile, reptile, 3 foot crook, kindergardener, 4'1, moisture destroyer, noodle hair, strawberry crossaint, 
+            small boy big temper, evapourated water, tahini's weenie, diddy, diddy diciple. diddy decendant, yapper, yapatron, brown diddy, teletubby, kermit the frog, dried water, yappasourus
+            
+            </p>
+        </section>
+        <div id="imageModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+
+        <section id="galleryMain">
+            <h2>My collection!</h2>
+            <ul id="gallery"></ul>
+            <button id="loadMore">Load More</button>
+        </section>
+
+    </main>
+    <footer>
+        <p>Ahmad Saeed 2010</p>
+    </footer>
+    <script>
+        const gallery = document.getElementById("gallery");
+        const loadMoreButton = document.getElementById("loadMore");
+        const batchSize = 10;
+        const totalImages = 38;
+        let loadedCount = 0;
+    
+        function loadImages() {
+            const endIndex = Math.min(loadedCount + batchSize, totalImages);
+    
+            for (let i = loadedCount + 1; i <= endIndex; i++) {
+                const li = document.createElement('li');
+                const img = document.createElement('img');
+                img.loading = "lazy";
+                img.src = `images/${i}.JPG`;
+                img.alt = `Image ${i}`;
+                li.appendChild(img);
+                gallery.appendChild(li);
+            }
+    
+            loadedCount = endIndex;
+    
+            // Reattach click event for the newly loaded images
+            document.querySelectorAll("#gallery img").forEach((img) => {
+                img.addEventListener("click", () => {
+                    modal.style.display = "flex";
+                    modalImage.src = img.src; // Use the clicked image's src
+                });
+            });
+    
+            if (loadedCount >= totalImages) {
+                loadMoreButton.style.display = 'none';
+            }
+        }
+    
+        loadImages();
+        loadMoreButton.addEventListener('click', loadImages);
+    </script>
+    
+    <script>
+        const modal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
+        const closeBtn = document.querySelector(".close");
+
+        // Open modal on image click
+        document.querySelectorAll("#gallery img").forEach((img) => {
+            img.addEventListener("click", () => {
+                modal.style.display = "flex";
+                modalImage.src = img.src; // Use the clicked image's src
+            });
+        });
+
+        // Close modal on close button click
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        // Close modal on clicking outside the image
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+    </script>
+</body>
+
+</html>
