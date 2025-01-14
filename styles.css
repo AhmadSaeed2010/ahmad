@@ -35,42 +35,12 @@ nav ul li a:hover {
     color: #343a40;
 }
 
-#about, #contact {
+#about {
     margin-top: 30px;
     padding: 20px;
     background: #f8f9fa;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-#contact form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#contact form label {
-    font-weight: bold;
-}
-
-#contact form input, 
-#contact form textarea, 
-#contact form button {
-    font-size: 1rem;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-#contact form button {
-    background: #007BFF;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-#contact form button:hover {
-    background: #0056b3;
 }
 
 /* Load More Button Styling */
