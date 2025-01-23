@@ -148,9 +148,9 @@
         nextSlide.addEventListener("click", showNextSlide);
         toggleAutoplay.addEventListener("click", toggleSlideshow);
 
-        // modal.addEventListener("click", (e) => {
-        //     if (e.target === modal) closeModal();
-        // });
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) closeModal();
+        });
 
         loadMoreButton.addEventListener('click', loadImages);
         loadImages();
