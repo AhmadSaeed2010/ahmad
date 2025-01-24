@@ -86,6 +86,10 @@
         let autoplayInterval = null;
         let loadedCount = 0;
 
+        const totalImagesText = document.createElement("h3", "totalImagesText");
+        totalImagesText.textContent = `Total Pictures: ${totalImages}`;
+        document.getElementById("galleryMain").appendChild(totalImagesText);
+
         function loadImages() {
             const endIndex = Math.min(loadedCount + batchSize, totalImages);
 
