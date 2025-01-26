@@ -83,7 +83,6 @@
         const nextSlide = document.getElementById("nextSlide");
         const toggleAutoplay = document.getElementById("toggleAutoplay");
 
-        const batchSize = 50;
         const autoPlayTime = 700;
 
         let galleryImages = [];
@@ -107,9 +106,11 @@
         }        
         async function loadImages() {
             const totalImages = await fetchImageCount();
+            const batchSize = Math.round(totalImages / 3)
             totalImagesText.textContent = `Total Pictures: ${totalImages}`;
 
             const endIndex = Math.min(loadedCount + batchSize, totalImages);
+            console.log(`totalImages: ${totalImages}\nbatchSize: ${batchSize}\nendIndex: ${endIndex}`)
 
             for (let i = loadedCount + 1; i <= endIndex; i++) {
                 const li = document.createElement('li');
