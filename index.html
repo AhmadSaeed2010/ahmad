@@ -96,6 +96,19 @@
         totalImagesText.textContent = `Total Pictures: ${totalImages}`;
         document.getElementById("galleryMain").appendChild(totalImagesText);
 
+        async function fetchImages() {
+            try {
+                const response = await fetch("image-count.txt");
+                if (!response.ok) throw new Error("Failed to load image-count.txt");
+                return await response.json();
+            } catch (error) {
+                console.error("Error fetching images:", error);
+                return [];
+            }
+        }
+        console.log(fetchImages)
+        console.log(fetchImages())
+        
         function loadImages() {
             const endIndex = Math.min(loadedCount + batchSize, totalImages);
 
