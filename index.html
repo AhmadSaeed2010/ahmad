@@ -107,8 +107,9 @@
         return 100; // Return 100 as a fallback
     }
 }
+    const imageCount = await fetchImageCount();
 
-        console.log(fetchImageCount())
+        console.log(imageCount)
         
         function loadImages() {
             const endIndex = Math.min(loadedCount + batchSize, totalImages);
