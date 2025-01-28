@@ -200,4 +200,29 @@
     </script>
 </body>
 
+<script>
+    window.consoleCommands = {
+        lockdown(amount) {
+
+            console.log(`locked site in autoplay mode`);
+        },
+
+        unlockdown() {
+            
+            console.log("removed locked down browser in autoplay mode.");
+        },
+
+        test(message) {
+            console.log(`test message: "${message}"`);
+        },
+    };
+
+    console.log(
+        "Console commands available:\n" +
+        "1. consoleCommands.lockdown() - lockdown site in autoplay.\n" +
+        "2. consoleCommands.unlockdown() - unlockdown site.\n" +
+        "3. consoleCommands.test(message) - test if commands are working."
+    );
+</script>
+
 </html>
