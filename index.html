@@ -179,10 +179,10 @@
             }
         }
 
-        closeBtn.addEventListener("click", closeModal);
-        prevSlide.addEventListener("click", showPrevSlide);
-        nextSlide.addEventListener("click", showNextSlide);
-        toggleAutoplay.addEventListener("click", toggleSlideshow);
+        //closeBtn.addEventListener("click", closeModal);
+        //prevSlide.addEventListener("click", showPrevSlide);
+        //nextSlide.addEventListener("click", showNextSlide);
+        //toggleAutoplay.addEventListener("click", toggleSlideshow);
         // modal.addEventListener("keydown", (e) => {
         //     console.log(e);
         //     if (e.keyCode === 32) {
@@ -195,8 +195,34 @@
         //     if (e.target === modal) closeModal();
         // });
 
-        loadMoreButton.addEventListener('click', loadImages);
+        //loadMoreButton.addEventListener('click', loadImages);
         loadImages();
+        const eventListeners = [
+            { element: closeBtn, event: "click", handler: closeModal },
+            { element: prevSlide, event: "click", handler: showPrevSlide },
+            { element: nextSlide, event: "click", handler: showNextSlide },
+            { element: toggleAutoplay, event: "click", handler: toggleSlideshow },
+            { element: modal, event: "keydown", handler: (e) => {
+                if (e.keyCode === 32) toggleSlideshow();
+            }},
+            { element: modal, event: "click", handler: (e) => {
+                if (e.target === modal) closeModal();
+            }},
+            { element: loadMoreButton, event: "click", handler: loadImages }
+        ];
+        
+        function addEventListeners() {
+            eventListeners.forEach(({ element, event, handler }) => {
+                element.addEventListener(event, handler);
+            });
+        }
+        
+        function removeEventListeners() {
+            eventListeners.forEach(({ element, event, handler }) => {
+                element.removeEventListener(event, handler);
+            });
+        }
+        addEventListeners()
     </script>
 </body>
 
@@ -205,12 +231,14 @@
         lockdown() {
             openModal()
             startAutoplay()
+            removeEventListeners()
             console.log(`locked site in autoplay mode`);
         },
 
         unlockdown() {
             closeModal()
             stopAutoplay()
+            addEventListeners()
             console.log("removed locked down browser in autoplay mode.");
         },
 
