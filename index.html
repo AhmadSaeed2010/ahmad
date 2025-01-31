@@ -77,7 +77,6 @@
     <script>
         const gallery = document.getElementById("gallery");
         const loadMoreButton = document.getElementById("loadMore");
-        const getRandomImgBtn = document.getElementById("getRdmImg");
         const modal = document.getElementById("imageModal");
         const modalImage = document.getElementById("modalImage");
         const closeBtn = document.querySelector(".close");
@@ -182,7 +181,7 @@
             }
         }
 
-        function showRdmImg() {
+        async function showRdmImg() {
             const totalImages = await fetchImageCount();
             const getRandomImg = Math.floor(Math.random() * totalImages)
             currentIndex = (currentIndex + 1) % galleryImages.length;
@@ -220,7 +219,7 @@
                 if (e.target === modal) closeModal();
             }},
             { element: loadMoreButton, event: "click", handler: loadImages }
-            { element: getRandomImgBtn, event: "click", handler: showRdmImg }
+            { element: getRdmImg, event: "click", handler: showRdmImg }
         ];
         
         function addEventListeners() {
