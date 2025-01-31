@@ -222,16 +222,29 @@
                 element.removeEventListener(event, handler);
             });
         }
+        function applyLockdownState() {
+            if (localStorage.getItem("isLocked") === "true") {
+                openModal();
+                startAutoplay();
+                removeEventListeners();
+                console.log("Lockdown mode restored after reload.");
+            } else {
+                addEventListeners();
+            }
+        }
+
         addEventListeners()
     </script>
 </body>
 
 <script>
-    window.consoleCommands = {
+    window.cmds = {
         lockdown() {
             openModal()
             startAutoplay()
             removeEventListeners()
+            localStorage.setItem("isLocked", "true");
+
             console.log(`locked site in autoplay mode`);
         },
 
@@ -239,7 +252,9 @@
             closeModal()
             stopAutoplay()
             addEventListeners()
-            console.log("removed locked down browser in autoplay mode.");
+            localStorage.setItem("isLocked", "false");
+
+            console.log("unlocked site from autoplay mode.");
         },
 
         test(message) {
@@ -249,10 +264,12 @@
 
     console.log(
         "Console commands available:\n" +
-        "1. consoleCommands.lockdown() - lockdown site in autoplay.\n" +
-        "2. consoleCommands.unlockdown() - unlockdown site.\n" +
-        "3. consoleCommands.test(message) - test if commands are working."
+        "1. cmds.lockdown() - lockdown site in autoplay.\n" +
+        "2. cmds.unlockdown() - unlockdown site.\n" +
+        "3. cmds.test(message) - test if commands are working."
     );
+    document.addEventListener("DOMContentLoaded", applyLockdownState);
+
 </script>
 
 </html>
