@@ -202,18 +202,18 @@
 
 <script>
     window.consoleCommands = {
-        lockdown(amount) {
-
+        lockdown() {
+            startAutoplay()
             console.log(`locked site in autoplay mode`);
         },
 
         unlockdown() {
-            
+            stopAutoPlay()
             console.log("removed locked down browser in autoplay mode.");
         },
 
         test(message) {
-            console.log(`test message: "${message}"`);
+            console.log(message);
         },
     };
 
