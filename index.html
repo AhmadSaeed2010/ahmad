@@ -218,7 +218,7 @@
             { element: modal, event: "click", handler: (e) => {
                 if (e.target === modal) closeModal();
             }},
-            { element: loadMoreButton, event: "click", handler: loadImages }
+            { element: loadMoreButton, event: "click", handler: loadImages },
             { element: getRdmImg, event: "click", handler: showRdmImg }
         ];
         
@@ -245,6 +245,7 @@
         }
 
         addEventListeners()
+        document.addEventListener("DOMContentLoaded", applyLockdownState);
     </script>
 </body>
 
@@ -279,8 +280,6 @@
         "2. cmds.unlockdown() - unlockdown site.\n" +
         "3. cmds.test(message) - test if commands are working."
     );
-    document.addEventListener("DOMContentLoaded", applyLockdownState);
-
 </script>
 
 </html>
