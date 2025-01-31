@@ -151,7 +151,6 @@
 
         function showNextSlide() {
             currentIndex = (currentIndex + 1) % galleryImages.length;
-            console.log(currentIndex, (currentIndex + 1), ((currentIndex + 1) % galleryImages.length))
             modalImage.src = galleryImages[currentIndex];
         }
 
@@ -184,7 +183,7 @@
         async function showRdmImg() {
             const totalImages = await fetchImageCount();
             const getRandomImg = Math.floor(Math.random() * totalImages)
-            currentIndex = (currentIndex + 1) % galleryImages.length;
+            currentIndex = getRandomImg
             openModal()
         }
 
@@ -251,7 +250,7 @@
 
 <script>
     window.cmds = {
-        lockdown() {
+        lock() {
             openModal()
             startAutoplay()
             removeEventListeners()
@@ -260,7 +259,7 @@
             console.log(`locked site in autoplay mode`);
         },
 
-        unlockdown() {
+        unlock() {
             closeModal()
             stopAutoplay()
             addEventListeners()
@@ -276,8 +275,8 @@
 
     console.log(
         "Console commands available:\n" +
-        "1. cmds.lockdown() - lockdown site in autoplay.\n" +
-        "2. cmds.unlockdown() - unlockdown site.\n" +
+        "1. cmds.lock() - lock site in autoplay.\n" +
+        "2. cmds.unlock() - unlock site.\n" +
         "3. cmds.test(message) - test if commands are working."
     );
 </script>
