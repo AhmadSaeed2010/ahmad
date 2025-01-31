@@ -142,7 +142,7 @@ nav ul li a:hover {
     align-items: center;
 }
 
-#loadMore {
+#loadMore, #getRdmImg {
     background: #007BFF;
     color: #fff;
     border: none;
@@ -155,7 +155,7 @@ nav ul li a:hover {
     margin: 20px auto;
 }
 
-#loadMore:hover {
+#loadMore:hover, #getRdmImg:hover {
     background: #0056b3;
     transform: scale(1.05);
 }
