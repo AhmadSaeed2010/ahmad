@@ -19,7 +19,7 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content="Ahmad Saeed">
-    <meta property="og:description" content="Ahmad Saeed, the goblin eczema plagued dwarf of grade 9 and smell like shit.">
+    <meta property="og:description" content="Ahmad Saeed, the smelly goblin eczema plagued dwarf of grade 9.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ahmadsaeed2010.github.io/ahmadsaeed/">
     <meta property="og:image" content="https://ahmadsaeed2010.github.io/ahmadsaeed/images/65.JPG">
@@ -27,7 +27,7 @@
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Ahmad Saeed">
-    <meta name="twitter:description" content="Ahmad Saeed, the goblin eczema plagued dwarf of grade 9 and smell like shit.">
+    <meta name="twitter:description" content="Ahmad Saeed, the smelly goblin eczema plagued dwarf of grade 9.">
     <meta name="twitter:image" content="https://ahmadsaeed2010.github.io/ahmadsaeed/images/65.JPG">
 
     <!-- CSS -->
@@ -53,7 +53,7 @@
   {
     "@context": "https://schema.org",
     "@type": "ImageGallery",
-    "name": "Ahmad Saeed Gallery",
+    "name": "Ahmad Saeed 2010",
     "image": [
       {
         "@type": "ImageObject",
@@ -159,6 +159,7 @@
         let currentIndex = 0;
         let autoplayInterval = null;
         let loadedCount = 0;
+        let loadedAllImages = false;
 
         const totalImagesText = document.createElement("h3", "totalImagesText");
         document.getElementById("galleryMain").appendChild(totalImagesText);
@@ -174,9 +175,9 @@
                 return 100; // Return 100 as a fallback
             }
         }
-        async function loadImages() {
+        async function loadImages(force) {
             const totalImages = await fetchImageCount();
-            const batchSize = Math.round(totalImages / 3)
+            const batchSize = force ? totalImages : Math.round(totalImages / 3)
             totalImagesText.textContent = `Total Pictures: ${totalImages}`;
 
             const endIndex = Math.min(loadedCount + batchSize, totalImages);
@@ -205,6 +206,7 @@
 
             if (loadedCount >= totalImages) {
                 loadMoreButton.style.display = 'none';
+                loadedAllImages = true;
             }
         }
 
@@ -250,10 +252,13 @@
         }
 
         async function showRdmImg() {
+            if (loadedAllImages == false) {
+                loadImages(true);
+            };
             const totalImages = await fetchImageCount();
-            const getRandomImg = Math.floor(Math.random() * totalImages)
-            currentIndex = getRandomImg
-            openModal()
+            const getRandomImg = Math.floor(Math.random() * totalImages);
+            currentIndex = getRandomImg;
+            openModal();
         }
 
         //closeBtn.addEventListener("click", closeModal);
