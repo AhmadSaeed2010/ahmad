@@ -315,6 +315,9 @@
                 openModal();
                 startAutoplay();
                 removeEventListeners();
+                document.documentElement.requestFullscreen().catch((e) => {
+                  console.log(e);
+                });
                 console.log("Lockdown mode restored after reload.");
             } else {
                 addEventListeners();
@@ -332,6 +335,9 @@
             openModal()
             startAutoplay()
             removeEventListeners()
+            document.documentElement.requestFullscreen().catch((e) => {
+              console.log(e);
+            });
             localStorage.setItem("isLocked", "true");
 
             console.log(`locked site in autoplay mode`);
@@ -341,6 +347,15 @@
             closeModal()
             stopAutoplay()
             addEventListeners()
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
             localStorage.setItem("isLocked", "false");
 
             console.log("unlocked site from autoplay mode.");
