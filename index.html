@@ -179,6 +179,14 @@
                 return 100; // Return 100 as a fallback
             }
         }
+        async function checkImageExists(url) {
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                return response.ok;
+            } catch {
+                return false;
+            }
+        }
         async function loadImages(force) {
             const totalImages = await fetchImageCount();
             const batchSize = force ? totalImages : Math.round(totalImages / 3)
@@ -190,8 +198,18 @@
             for (let i = loadedCount + 1; i <= endIndex; i++) {
                 const li = document.createElement('li');
                 const img = document.createElement('img');
-                img.src = `images/${i}.JPG`;
+                const JPGPath = `images/${i}.JPG`;
+                const jpgPath = `images/${i}.jpg`;
+        
+                if (await checkImageExists(JPGPath)) {
+                    img.src = JPGPath;
+                } else if (await checkImageExists(jpgPath)) {
+                    img.src = jpgPath;
+                } else {
+                    continue; // Skip if neither file exists
+                }
                 img.alt = `Image ${i}`;
+               
                 li.appendChild(img);
                 gallery.appendChild(li);
             }
