@@ -172,13 +172,14 @@
             try {
                 const response = await fetch("image-count.txt");
                 if (!response.ok) throw new Error("Failed to load image-count.txt");
-                const text = await response.text(); // Read the response as plain text
-                return parseInt(text.trim(), 10); // Parse and return the number
+                const text = await response.text();
+                return parseInt(text.trim(), 10); 
             } catch (error) {
                 console.error("Error fetching image count:", error);
-                return 200; // Return 100 as a fallback
+                return 230;
             }
         }
+        
         async function checkImageExists(url) {
             try {
                 const response = await fetch(url, { method: 'HEAD' });
@@ -187,35 +188,47 @@
                 return false;
             }
         }
+        
         async function loadImages(force) {
             const totalImages = await fetchImageCount();
-            const batchSize = force ? totalImages : Math.round(totalImages / 3)
+            const batchSize = force ? totalImages : Math.round(totalImages / 3);
             totalImagesText.textContent = `Total Pictures: ${totalImages}`;
-
+        
             const endIndex = Math.min(loadedCount + batchSize, totalImages);
-            console.log(`totalImages: ${totalImages}\nbatchSize: ${batchSize}\nendIndex: ${endIndex}`)
-
+            console.log(`totalImages: ${totalImages}\nbatchSize: ${batchSize}\nendIndex: ${endIndex}`);
+        
             for (let i = loadedCount + 1; i <= endIndex; i++) {
                 const li = document.createElement('li');
                 const img = document.createElement('img');
-                const JPGPath = `images/${i}.JPG`;
-                const jpgPath = `images/${i}.jpg`;
         
-                if (await checkImageExists(JPGPath)) {
-                    img.src = JPGPath;
-                } else if (await checkImageExists(jpgPath)) {
-                    img.src = jpgPath;
-                } else {
-                    continue; // Skip if neither file exists
+                // Check for different image formats: JPG, jpg, PNG, and png
+                const imagePaths = [
+                    `images/${i}.JPG`,
+                    `images/${i}.jpg`,
+                    `images/${i}.PNG`,
+                    `images/${i}.png`
+                ];
+        
+                let imageFound = false;
+                for (const path of imagePaths) {
+                    if (await checkImageExists(path)) {
+                        img.src = path;
+                        imageFound = true;
+                        break;
+                    }
                 }
+        
+                if (!imageFound) {
+                    continue; // Skip if none of the files exist
+                }
+        
                 img.alt = `Image ${i}`;
-               
                 li.appendChild(img);
                 gallery.appendChild(li);
             }
-
+        
             loadedCount = endIndex;
-
+        
             document.querySelectorAll("#gallery img").forEach((img) => {
                 if (!galleryImages.includes(img.src)) {
                     galleryImages.push(img.src);
@@ -225,7 +238,7 @@
                     });
                 }
             });
-
+        
             if (loadedCount >= totalImages) {
                 loadMoreButton.style.display = 'none';
                 loadedAllImages = true;
